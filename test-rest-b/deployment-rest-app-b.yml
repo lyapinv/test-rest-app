@@ -1,0 +1,42 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  labels:
+    app: rest-app-b
+    version: v1
+  name: rest-app-b
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: rest-app-b
+      version: v1
+  template:
+    metadata:
+      labels:
+        app: rest-app-b
+        group: tutorial-rest-app
+        version: v1
+      annotations:
+        sidecar.istio.io/inject: "true"
+    spec:
+      containers:
+        - env:
+            - name: JAVA_OPTIONS
+              value: -Xms128m -Xmx128m -Xmn128m
+          name: rest-app-b
+          image: 172.30.1.1:5000/tutorial/rest-app-b
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8080
+              name: http
+              protocol: TCP
+          resources:
+            requests:
+              memory: "200Mi"
+              cpu: "200m" # 1/5 core
+            limits:
+              memory: "400Mi"
+              cpu: "500m"
+          securityContext:
+            privileged: false

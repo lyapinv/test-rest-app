@@ -1,0 +1,40 @@
+istio-proxy@rest-app-a-5997b4dc4c-jt6dg:/$ sudo tcpdump -vvvv -A -i eth0 '((dst port 8080) and (net 172.17.0.23))'
+tcpdump: listening on eth0, link-type EN10MB (Ethernet), capture size 262144 bytes
+17:00:49.113372 IP (tos 0x0, ttl 64, id 4455, offset 0, flags [DF], proto TCP (6), length 60)
+    rest-app-a-5997b4dc4c-jt6dg.36598 > 172.17.0.21.8080: Flags [S], cksum 0x587d (incorrect -> 0x1057), seq 2784232346, win 29200, options [mss 1460,sackOK,TS val 37229309 ecr 0,nop,wscale 7], length 0
+E..<.g@.@.........................r.X}.........
+.8..........
+17:00:49.113451 IP (tos 0x0, ttl 64, id 4456, offset 0, flags [DF], proto TCP (6), length 52)
+    rest-app-a-5997b4dc4c-jt6dg.36598 > 172.17.0.21.8080: Flags [.], cksum 0x5875 (incorrect -> 0xa627), seq 2784232347, ack 3960867019, win 229, options [nop,nop,TS val 37229309 ecr 37229309], length 0
+E..4.h@.@...........................Xu.....
+.8...8..
+17:00:49.113591 IP (tos 0x0, ttl 64, id 4457, offset 0, flags [DF], proto TCP (6), length 259)
+    rest-app-a-5997b4dc4c-jt6dg.36598 > 172.17.0.21.8080: Flags [P.], cksum 0x5944 (incorrect -> 0xb304), seq 0:207, ack 1, win 229, options [nop,nop,TS val 37229309 ecr 37229309], length 207: HTTP
+E....i@.@..=........................YD.....
+.8...8..............7.AG-..P....4...v.......N..?U5.....+.../...	...../.,.0.
+.....5.......<.:..7outbound_.8080_._.rest-app-b.tutorial.svc.cluster.local..........
+...............#.........istio........................
+17:00:49.116363 IP (tos 0x0, ttl 64, id 4458, offset 0, flags [DF], proto TCP (6), length 52)
+    rest-app-a-5997b4dc4c-jt6dg.36598 > 172.17.0.21.8080: Flags [.], cksum 0x5875 (incorrect -> 0xa04e), seq 207, ack 1263, win 251, options [nop,nop,TS val 37229312 ecr 37229312], length 0
+E..4.j@.@..................j........Xu.....
+.8...8..
+17:00:49.120624 IP (tos 0x0, ttl 64, id 4459, offset 0, flags [DF], proto TCP (6), length 1232)
+    rest-app-a-5997b4dc4c-jt6dg.36598 > 172.17.0.21.8080: Flags [P.], cksum 0x5d11 (incorrect -> 0x0521), seq 207:1387, ack 1263, win 251, options [nop,nop,TS val 37229316 ecr 37229312], length 1180: HTTP
+E....k@.@..n...............j........]......
+.8...8......-...)..&..#0...0..............f....8w.L...^0..	*.H........0.1.0...U.
+..cluster.local0...200330064444Z..200628064444Z0.0.."0..	*.H.............0..
+.......M3.......#....p..o...
+
+....[%n..1..;.@.u.......;.=.T...M...4C}.2./k.!.-.....a..f...........F...  ...&.u..6N..x.G.{...}..\..Z...).......;!......!(....3..	..*z.....?	.?:..f....H..r.3a..vd.....4...V......[5.;..K_....2...+.....x.$.....V....M.	W....~e~...?.=.......|0z0...U...........0...U.%..0...+.........+.......0...U.......0.0;..U......10/.-spiffe://cluster.local/ns/tutorial/sa/default0..	*.H.............M....@.a\^$.Ze....h.........n.GmwnI...FZ.....K..Q..6.N0.>.<	.....f..o0..q....$E5\*..|.X.a.r).....ns....+Z..........H..@.n?...t.0...x...|W.p...J|m0M....'[..4...E.D.t..\...<...K.2..e!..*.<G......./.6..#..].E.e..;R..bz.lu$.@......2..z_......41......7.].. .<X.....%...! .&.....#...3O.S..........;.....G.............. N7_.*.h.Z3.......a%./.I.V.t=..x..|......i.z..Y...........&.......e.g_g...]...D.c..D..l.3v..R.....3]O.N........f........L1.F......'5.XL^.A..9.....]0D.L.0=Tb....Z9?w........I.B}d.y.<."2*..X..h.f...l....6.Ajh..'N3|...t....4t..@Q..uj..3z.]8.lvG6B.......]...+..........(........_.@._.A.,, u..K....$.;...=.@r..O
+17:00:49.121582 IP (tos 0x0, ttl 64, id 4460, offset 0, flags [DF], proto TCP (6), length 896)
+    rest-app-a-5997b4dc4c-jt6dg.36598 > 172.17.0.21.8080: Flags [P.], cksum 0x5bc1 (incorrect -> 0xafdb), seq 1387:2231, ack 2337, win 271, options [nop,nop,TS val 37229317 ecr 37229317], length 844: HTTP
+E....l@.@.................	.........[......
+.8...8......G.........c......a.e..w......4.Z.{4...........Q..Hl.....}.9..a...CP<.m.V.m:V.`k~Y..g......]p
+...X2......`..
+.fg.8..h....n~=.A..;..i....hM..............+.......c.:^P..E.......n	..aa-..m......M3....Xua../..>.......0...."XD.Gn..-
+<..M.........@/...(..dO9...%....\......|$.w......"..g...m.n./.G.;...}.*.........BI!.Q>.Y....}..M..U.#xD.4k.R..:..X.@.7..9@..\..0.O_M.!..V3.N...........K..KvT..~.-..t..u..d3..1..Jp....r.		...........&..a@.p|....wO...."....M.l.....k..6...Dfq....'2...)..'.....#... ]]l,g..1.6.bz.'<.k.+U %..../.@.B.=j..cU..YJc........X.>.v}ICk...x3TC....o.....r4.......?<.	H..:.....L.?T.p......y...D].....D.x..P...L...n.......E$A...............Z...L:G..r.F5J.:..*/...*.%~.}u..W.......A.....+f...O...|3.....P<..x.\......w..t.>c...J....
+@.D..f...}..v 0gG.../..F..5...2...x...3...~.(..h!%%.6Gl.h..L.FV.dg.......{..*.>.J$.....C<....B.yS/
+17:00:49.178806 IP (tos 0x0, ttl 64, id 4461, offset 0, flags [DF], proto TCP (6), length 52)
+    rest-app-a-5997b4dc4c-jt6dg.36598 > 172.17.0.21.8080: Flags [.], cksum 0x5875 (incorrect -> 0x9252), seq 2231, ack 2693, win 291, options [nop,nop,TS val 37229375 ecr 37229335], length 0
+E..4.m@.@..................R...O...#Xu.....
+.8.?.8..

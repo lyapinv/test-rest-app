@@ -1,0 +1,37 @@
+istio-proxy@rest-app-a-5997b4dc4c-jt6dg:/$ sudo tcpdump -vvvv -A -i eth0 '((dst port 8080) and (net 172.17.0.23))'
+tcpdump: listening on eth0, link-type EN10MB (Ethernet), capture size 262144 bytes
+14:49:00.419818 IP (tos 0x0, ttl 64, id 17033, offset 0, flags [DF], proto TCP (6), length 867)
+    rest-app-a-5997b4dc4c-jt6dg.49806 > 172.17.0.21.8080: Flags [P.], cksum 0x5ba4 (incorrect -> 0x6c7d), seq 2109077976:2109078791, ack 2177932401, win 363, options [nop,nop,TS val 29320615 ecr 27810905], length 815: HTTP, length: 815
+	GET /cities HTTP/1.1
+	host: rest-app-b:8080
+	accept: text/plain, application/json, application/*+json, */*
+	user-agent: Java/1.8.0_191
+	x-forwarded-proto: http
+	x-request-id: 4e99ba28-2cad-98cc-a199-63ed8941f06e
+	x-envoy-decorator-operation: rest-app-b.tutorial.svc.cluster.local:8080/*
+	x-istio-attributes: CigKGGRlc3RpbmF0aW9uLnNlcnZpY2UubmFtZRIMEgpyZXN0LWFwcC1iCisKHWRlc3RpbmF0aW9uLnNlcnZpY2UubmFtZXNwYWNlEgoSCHR1dG9yaWFsCkEKCnNvdXJjZS51aWQSMxIxa3ViZXJuZXRlczovL3Jlc3QtYXBwLWEtNTk5N2I0ZGM0Yy1qdDZkZy50dXRvcmlhbApDChhkZXN0aW5hdGlvbi5zZXJ2aWNlLmhvc3QSJxIlcmVzdC1hcHAtYi50dXRvcmlhbC5zdmMuY2x1c3Rlci5sb2NhbApBChdkZXN0aW5hdGlvbi5zZXJ2aWNlLnVpZBImEiRpc3RpbzovL3R1dG9yaWFsL3NlcnZpY2VzL3Jlc3QtYXBwLWI=
+	x-b3-traceid: 85ac9a440b2e93015e221f1b548cf168
+	x-b3-spanid: 5e221f1b548cf168
+	x-b3-sampled: 1
+	content-length: 0
+
+E..cB.@.@...............}......q...k[......
+..e...\YGET /cities HTTP/1.1
+host: rest-app-b:8080
+accept: text/plain, application/json, application/*+json, */*
+user-agent: Java/1.8.0_191
+x-forwarded-proto: http
+x-request-id: 4e99ba28-2cad-98cc-a199-63ed8941f06e
+x-envoy-decorator-operation: rest-app-b.tutorial.svc.cluster.local:8080/*
+x-istio-attributes: CigKGGRlc3RpbmF0aW9uLnNlcnZpY2UubmFtZRIMEgpyZXN0LWFwcC1iCisKHWRlc3RpbmF0aW9uLnNlcnZpY2UubmFtZXNwYWNlEgoSCHR1dG9yaWFsCkEKCnNvdXJjZS51aWQSMxIxa3ViZXJuZXRlczovL3Jlc3QtYXBwLWEtNTk5N2I0ZGM0Yy1qdDZkZy50dXRvcmlhbApDChhkZXN0aW5hdGlvbi5zZXJ2aWNlLmhvc3QSJxIlcmVzdC1hcHAtYi50dXRvcmlhbC5zdmMuY2x1c3Rlci5sb2NhbApBChdkZXN0aW5hdGlvbi5zZXJ2aWNlLnVpZBImEiRpc3RpbzovL3R1dG9yaWFsL3NlcnZpY2VzL3Jlc3QtYXBwLWI=
+x-b3-traceid: 85ac9a440b2e93015e221f1b548cf168
+x-b3-spanid: 5e221f1b548cf168
+x-b3-sampled: 1
+content-length: 0
+
+
+14:49:00.432489 IP (tos 0x0, ttl 64, id 17034, offset 0, flags [DF], proto TCP (6), length 52)
+    rest-app-a-5997b4dc4c-jt6dg.49806 > 172.17.0.21.8080: Flags [.], cksum 0x5875 (incorrect -> 0xd1b0), seq 815, ack 327, win 371, options [nop,nop,TS val 29320628 ecr 29320628], length 0
+E..4B.@.@...............}..........sXu.....
+..e...e.
+
