@@ -1,0 +1,27 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  labels:
+    app: busybox
+    version: v1
+  name: busybox
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: busybox
+      version: v1
+  template:
+    metadata:
+      labels:
+        app: busybox
+        version: v1
+      annotations:
+#        sidecar.istio.io/inject: "true"
+    spec:
+      containers:
+        - name: busybox
+          image: image-registry.openshift-image-registry.svc:5000/tutorial/busybox:v1
+          imagePullPolicy: IfNotPresent
+          securityContext:
+            privileged: false
