@@ -30,7 +30,7 @@ spec:
 #          image: default-route-openshift-image-registry.apps-crc.testing/tutorial/rest-app-b
           imagePullPolicy: IfNotPresent
           ports:
-            - containerPort: 8081
+            - containerPort: 8080
               name: http
               protocol: TCP
           resources:
