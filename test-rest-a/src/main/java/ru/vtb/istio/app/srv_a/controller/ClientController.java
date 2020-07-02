@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -17,6 +18,9 @@ import org.springframework.web.client.RestTemplate;
 public class ClientController {
 
     @Autowired
+    private JdbcTemplate jtm;
+
+    @Autowired
     private RestTemplate restTemplate;
 
     @Value("${SERVICE_B_URI}")
@@ -26,7 +30,7 @@ public class ClientController {
 
     @RequestMapping("/ping")
     public String ping() {
-        System.out.println("!!! Call A service ping method. Reply PONG");
+        System.out.println("!!! New Call A service ping method. Reply PONG");
         return "pong";
     }
 

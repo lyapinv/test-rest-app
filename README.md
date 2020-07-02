@@ -1,5 +1,6 @@
 #Init oc
-eval $(minishift oc-env)
+#eval $(minishift oc-env)
+eval $(crc oc-env)
 
 #Login OS as admin
 oc login -u admin -p admin
@@ -11,12 +12,12 @@ oc new-project tutorial
 oc adm policy add-scc-to-user privileged -z default -n tutorial
 
 #If need internal OS docker registry (instead of remote) to load container
-eval $(minishift docker-env)
+#eval $(minishift docker-env)
 eval $(crc podman-env)
 
 #Login internal Docker registry
-docker login -u $(oc whoami) -p $(oc whoami -t) $(minishift openshift registry)
-docker login -u kubeadmin -p $(oc whoami -t) default-route-openshift-image-registry.apps-crc.testing	
+#docker login -u $(oc whoami) -p $(oc whoami -t) $(minishift openshift registry)
+docker login -u kubeadmin -p $(oc whoami -t) default-route-openshift-image-registry.apps-crc.testing
 
 Create config maps with link to DB
 oc apply -f test-rest-a/configmap.yml
@@ -24,11 +25,16 @@ oc apply -f test-rest-a/configmap.yml
 #Print config maps
 oc get cm
 
+# CRC_REGISTRY=image-registry.openshift-image-registry.svc:5000
+CRC_REGISTRY=default-route-openshift-image-registry.apps-crc.testing
+
 #Deploy MS B
 mvn clean package
 docker build -t tutorial/rest-app-b test-rest-b/.
-docker tag tutorial/rest-app-b $(minishift openshift registry)/tutorial/rest-app-b
-docker push $(minishift openshift registry)/tutorial/rest-app-b
+#docker tag tutorial/rest-app-b $(minishift openshift registry)/tutorial/rest-app-b
+docker tag tutorial/rest-app-b $CRC_REGISTRY/tutorial/rest-app-b
+#docker push $(minishift openshift registry)/tutorial/rest-app-b
+docker push $CRC_REGISTRY/tutorial/rest-app-b
 oc delete deployment rest-app-b -n tutorial
 #oc apply -f test-rest-b/deployment-rest-app-b.yml -n tutorial
 istioctl kube-inject -f test-rest-b/deployment-rest-app-b.yml > test-rest-b/deployment-rest-app-b-istio.yml

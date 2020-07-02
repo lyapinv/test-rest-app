@@ -5,6 +5,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,11 +21,15 @@ public class CityController {
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
     @Autowired
+    private JdbcTemplate jtm;
+
+    @Autowired
     private ICityService cityService;
 
     @RequestMapping("/ping")
     public String ping() {
-        System.out.println("!!! Call B service ping method. Reply PONG");
+        System.out.println("!!! New Call B service ping method. Reply PONG");
+        System.out.println("jtm: " + jtm);
         logger.info(" $$$ ping/pong");
         return "pong";
     }
