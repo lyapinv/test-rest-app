@@ -12,9 +12,11 @@ oc adm policy add-scc-to-user privileged -z default -n tutorial
 
 #If need internal OS docker registry (instead of remote) to load container
 eval $(minishift docker-env)
+eval $(crc podman-env)
 
 #Login internal Docker registry
 docker login -u $(oc whoami) -p $(oc whoami -t) $(minishift openshift registry)
+docker login -u kubeadmin -p $(oc whoami -t) default-route-openshift-image-registry.apps-crc.testing	
 
 Create config maps with link to DB
 oc apply -f test-rest-a/configmap.yml

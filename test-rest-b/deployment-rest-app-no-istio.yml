@@ -2,48 +2,41 @@ apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
   labels:
-    app: rest-app-a
+    app: rest-app-no-istio
     version: v1
-  name: rest-app-a
+  name: rest-app-no-istio
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: rest-app-a
+      app: rest-app-no-istio
       version: v1
   template:
     metadata:
       labels:
-        app: rest-app-a
+        app: rest-app-no-istio
         group: tutorial-rest-app
         version: v1
       annotations:
-        sidecar.istio.io/inject: "true"
-        sidecar.istio.io/rewriteAppHTTPProbers: "true"
     spec:
       containers:
         - env:
             - name: JAVA_OPTIONS
               value: -Xms128m -Xmx128m -Xmn128m
-            - name: SERVICE_B_URI
-              valueFrom:
-                configMapKeyRef:
-                  name: rest-app-config
-                  key: service.b.uri
-          name: jdbc-app-1
-          image: image-registry.openshift-image-registry.svc:5000/tutorial/rest-app-a
-          #image: default-route-openshift-image-registry.apps-crc.testing/tutorial/rest-app-a
+          name: rest-app-no-istio
+          image: image-registry.openshift-image-registry.svc:5000/tutorial/rest-app-b
+#          image: default-route-openshift-image-registry.apps-crc.testing/tutorial/rest-app-no-istio
           imagePullPolicy: IfNotPresent
           ports:
-            - containerPort: 8081
+            - containerPort: 8080
               name: http
               protocol: TCP
           resources:
             requests:
-              memory: "200Mi"
               cpu: "200m" # 1/5 core
+              memory: "128Mi"
             limits:
-              memory: "400Mi"
               cpu: "500m"
+              memory: "256Mi"
           securityContext:
             privileged: false
